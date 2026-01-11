@@ -1,0 +1,135 @@
+================================================================================
+                           RATON PROJECT WORKLOG
+================================================================================
+
+This file serves as a living checkpoint for the Raton project. Any engineer or
+agent can use this file, in conjunction with docs/PLAN.md and docs/tasks/, to
+understand what has been done and what remains pending.
+
+Last Updated: 2026-01-11
+
+================================================================================
+                              PROJECT STATUS
+================================================================================
+
+Current Phase: Phase 2 - Domain Models (Not Started)
+Overall Progress: Phase 1 Complete, Phase 2 Pending
+
+================================================================================
+                            PHASE 1: COMPLETE
+================================================================================
+
+Phase 1: Project Foundation - COMPLETED
+
+Deliverables:
+  [x] Project structure with uv package management
+  [x] Code quality tooling (ruff, pre-commit)
+  [x] Configuration system (pydantic-settings)
+  [x] Logging configuration
+  [x] CI-ready test infrastructure
+  [x] .env.example with all required variables
+
+Files Created:
+  - src/raton/__init__.py
+  - src/raton/main.py
+  - src/raton/config.py
+  - src/raton/logging_config.py
+  - src/raton/models/__init__.py (empty, placeholder)
+  - src/raton/bot/__init__.py (empty, placeholder)
+  - src/raton/agent/__init__.py (empty, placeholder)
+  - src/raton/services/__init__.py (empty, placeholder)
+  - tests/conftest.py
+  - pyproject.toml
+  - .pre-commit-config.yaml
+  - .env.example
+
+Verification:
+  - `uv sync` completes without errors
+  - `uv run pytest` runs successfully
+  - `uv run pre-commit run -a` passes
+  - Configuration loads from .env
+
+================================================================================
+                       PHASE 2: DOMAIN MODELS (PENDING)
+================================================================================
+
+Phase 2: Domain Models - NOT STARTED
+
+Progress: 0/12 tasks complete
+
+Tasks (see docs/tasks/ for details):
+  [ ] 2.01 - Base Types and Enums (base.py)
+  [ ] 2.02 - Flight Segment Model (flight.py)
+  [ ] 2.03 - Itinerary Model (flight.py)
+  [ ] 2.04 - Price Model (flight.py)
+  [ ] 2.05 - FlightOffer Model (flight.py)
+  [ ] 2.06 - Route Model (preferences.py)
+  [ ] 2.07 - DateRange Model (preferences.py)
+  [ ] 2.08 - UserPreferences Model (preferences.py)
+  [ ] 2.09 - Amadeus Response Models (amadeus.py)
+  [ ] 2.10 - Mapper Functions (mappers.py)
+  [ ] 2.11 - Package Exports (__init__.py)
+  [ ] 2.12 - Test Fixtures (conftest.py)
+
+Suggested Implementation Order:
+  1. Task 2.01 (Base Types) - no dependencies
+  2. Task 2.09 (Amadeus Models) - can be parallel with 2.01
+  3. Task 2.02 (Flight Segment) - depends on 2.01
+  4. Task 2.04 (Price) - depends on 2.01
+  5. Task 2.03 (Itinerary) - depends on 2.02
+  6. Task 2.05 (FlightOffer) - depends on 2.02, 2.03, 2.04
+  7. Task 2.06 (Route) - depends on 2.01
+  8. Task 2.07 (DateRange) - no dependencies
+  9. Task 2.08 (UserPreferences) - depends on 2.01, 2.06, 2.07
+  10. Task 2.10 (Mappers) - depends on 2.05, 2.09
+  11. Task 2.11 (Package Exports) - depends on all above
+  12. Task 2.12 (Test Fixtures) - depends on all above
+
+================================================================================
+                         PHASES 3-10: NOT STARTED
+================================================================================
+
+Phase 3: Amadeus Integration - NOT STARTED
+Phase 4: Preferences Storage - NOT STARTED
+Phase 5: Deal Detection - NOT STARTED
+Phase 6: Telegram Notifications - NOT STARTED
+Phase 7: Scheduled Flight Checks (V1) - NOT STARTED
+Phase 8: Telegram Command Handlers - NOT STARTED
+Phase 9: Long-Running Service (V2) - NOT STARTED
+Phase 10: AI Agent Integration (V3) - NOT STARTED
+
+================================================================================
+                              CHANGE LOG
+================================================================================
+
+[2026-01-11] Initial worklog created
+  - Phase 1 marked as complete (based on existing codebase)
+  - Phase 2 tasks documented in docs/tasks/
+  - 12 detailed task files created for Phase 2
+
+================================================================================
+                                NOTES
+================================================================================
+
+Key Implementation Considerations for Phase 2:
+  - Use Decimal for money (never float)
+  - Store datetimes as timezone-aware
+  - Need ISO 8601 duration parser for "PT2H30M" format
+  - YAML must be human-readable for preferences
+  - Keep API models (amadeus.py) separate from domain models
+
+Files to Create in Phase 2:
+  - src/raton/models/base.py
+  - src/raton/models/flight.py
+  - src/raton/models/preferences.py
+  - src/raton/models/amadeus.py
+  - src/raton/models/mappers.py
+  - tests/models/test_base.py
+  - tests/models/test_flight.py
+  - tests/models/test_preferences.py
+  - tests/models/test_amadeus.py
+  - tests/models/test_mappers.py
+  - tests/models/test_init.py
+  - tests/fixtures/amadeus_response.json
+
+================================================================================

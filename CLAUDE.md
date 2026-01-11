@@ -10,6 +10,30 @@ The architecture is straightforward: a long-running async Python process that co
 
 We aim for small, quality contributions and shipping working software. Every feature should be minimal, tested, and verified to work before moving on.
 
+## Contributing
+
+You will address me as "Pala"
+
+### TDD Workflow
+
+We follow Test-Driven Development. Every task must follow this workflow:
+
+1. **Understand** - Review project context and the goal of the task
+2. **Define scenarios** - Identify acceptance criteria as concrete scenarios (happy path + key edge cases)
+3. **Write tests first** - Implement those scenarios as failing tests
+4. **Code** - Write the minimum code to make tests pass
+5. **Verify** - Ensure all tests pass and linting is clean
+
+Keep test coverage pragmatic: happy path and a few important edge cases. No need for exhaustive coverage.
+
+### Approval Process
+
+Before writing any code:
+
+1. **Consult the software architect** - Discuss the approach and get architect approval
+2. **Get Pala's approval** - Present the plan to Pala for final sign-off
+3. **Then code** - Only after both approvals, begin implementation
+
 ## Technical Stack
 
 - **Python 3.13** - Use modern Python features (type hints, match statements, etc.)
@@ -26,31 +50,37 @@ We aim for small, quality contributions and shipping working software. Every fea
 ## Code Style Guidelines
 
 ### Linting and Formatting
+
 - Run `uv run pre-commit run -a` to lint and format all files
 - Pre-commit hooks enforce this automatically on commits
 - Configuration lives in `pyproject.toml` and `.pre-commit-config.yaml`
 
 ### Documentation
+
 - All public methods, functions, and classes must have Google Style docstrings
 - Docstrings should describe what the function does, its arguments, and return values
 - Keep docstrings concise but informative
 
 ### Type Hints
+
 - Use type hints everywhere
 - Use `from __future__ import annotations` for forward references
 - Prefer `list[str]` over `List[str]` (Python 3.9+ syntax)
 
 ### Async
+
 - This is an async-first codebase
 - Use `async def` for I/O operations
 - Use `asyncio` for concurrency
 - The Telegram bot and scheduler run in the same event loop
 
 ### Imports
+
 - Use absolute imports: `from raton.services.amadeus import AmadeusClient`
 - Group imports: stdlib, third-party, local (ruff handles this)
 
 ### Error Handling
+
 - Use custom exceptions where appropriate
 - Log errors with context
 - Never silently swallow exceptions
@@ -75,11 +105,13 @@ src/raton/
 ## Testing Guidelines
 
 ### Test Structure
+
 - Tests must be functions, not classes
 - Use descriptive names that explain what is being tested
 - Configuration and shared setup belongs in fixtures under `conftest.py` files
 
 ### Test Documentation
+
 Every test function must have a docstring in GIVEN/WHEN/THEN format:
 
 ```python
@@ -93,11 +125,13 @@ def test_search_flights_returns_empty_list_when_no_matches():
 ```
 
 ### Test Commands
+
 - Run all tests: `uv run pytest`
 - Run with coverage: `uv run pytest --cov=raton`
 - Run specific test: `uv run pytest tests/test_amadeus.py::test_name`
 
 ### Mocking
+
 - Mock external APIs (Amadeus, Telegram, Anthropic) in tests
 - Use `pytest-asyncio` for async tests
 
@@ -131,12 +165,14 @@ uv run pre-commit run -a
 ## Environment Variables
 
 Required in `.env`:
+
 - `TELEGRAM_BOT_TOKEN` - From @BotFather
 - `ANTHROPIC_API_KEY` - From Anthropic Console
 - `AMADEUS_API_KEY` - From Amadeus Developer Portal
 - `AMADEUS_API_SECRET` - From Amadeus Developer Portal
 
 Optional:
+
 - `AMADEUS_BASE_URL` - Default: `https://test.api.amadeus.com`
 - `CHECK_INTERVAL_HOURS` - Default: `1`
 - `LOG_LEVEL` - Default: `INFO`
@@ -149,16 +185,18 @@ The bot runs as a systemd service on a Digital Ocean VM. See `deploy/raton.servi
 ## External API Notes
 
 ### Amadeus
+
 - Free tier has monthly quotas
 - Does NOT include: American Airlines, Delta, British Airways, low-cost carriers
 - OAuth token auto-refreshes (SDK handles this)
 - Rate limiting handled by SDK
 
 ### Telegram
+
 - Use async handlers from `python-telegram-bot`
 - All user messages route through the AI agent
 - Commands: `/start`, `/help`, `/preferences`, `/search`
 
 ## Implementation Reference
 
-See `PLAN.md` for the detailed implementation plan with all phases.
+See `docs/PLAN.md` for the detailed implementation plan with all phases.
