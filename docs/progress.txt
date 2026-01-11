@@ -12,8 +12,8 @@ Last Updated: 2026-01-11
                               PROJECT STATUS
 ================================================================================
 
-Current Phase: Phase 2 - Domain Models (Not Started)
-Overall Progress: Phase 1 Complete, Phase 2 Pending
+Current Phase: Phase 3 - Amadeus Integration (Next)
+Overall Progress: Phase 1-2 Complete, Phase 3 Pending
 
 ================================================================================
                             PHASE 1: COMPLETE
@@ -50,40 +50,76 @@ Verification:
   - Configuration loads from .env
 
 ================================================================================
-                       PHASE 2: DOMAIN MODELS (PENDING)
+                       PHASE 2: DOMAIN MODELS (COMPLETE)
 ================================================================================
 
-Phase 2: Domain Models - NOT STARTED
+Phase 2: Domain Models - COMPLETED
 
-Progress: 0/12 tasks complete
+Progress: 12/12 tasks complete
 
-Tasks (see docs/tasks/ for details):
-  [ ] 2.01 - Base Types and Enums (base.py)
-  [ ] 2.02 - Flight Segment Model (flight.py)
-  [ ] 2.03 - Itinerary Model (flight.py)
-  [ ] 2.04 - Price Model (flight.py)
-  [ ] 2.05 - FlightOffer Model (flight.py)
-  [ ] 2.06 - Route Model (preferences.py)
-  [ ] 2.07 - DateRange Model (preferences.py)
-  [ ] 2.08 - UserPreferences Model (preferences.py)
-  [ ] 2.09 - Amadeus Response Models (amadeus.py)
-  [ ] 2.10 - Mapper Functions (mappers.py)
-  [ ] 2.11 - Package Exports (__init__.py)
-  [ ] 2.12 - Test Fixtures (conftest.py)
+Commits:
+  - c823523: feat(models): add base types and Amadeus API response models (PR 1/3)
+  - ea8ad66: feat(models): add flight and preference domain models (PR 2/3)
+  - 7f85a07: feat(models): add mappers and complete package integration (PR 3/3)
 
-Suggested Implementation Order:
-  1. Task 2.01 (Base Types) - no dependencies
-  2. Task 2.09 (Amadeus Models) - can be parallel with 2.01
-  3. Task 2.02 (Flight Segment) - depends on 2.01
-  4. Task 2.04 (Price) - depends on 2.01
-  5. Task 2.03 (Itinerary) - depends on 2.02
-  6. Task 2.05 (FlightOffer) - depends on 2.02, 2.03, 2.04
-  7. Task 2.06 (Route) - depends on 2.01
-  8. Task 2.07 (DateRange) - no dependencies
-  9. Task 2.08 (UserPreferences) - depends on 2.01, 2.06, 2.07
-  10. Task 2.10 (Mappers) - depends on 2.05, 2.09
-  11. Task 2.11 (Package Exports) - depends on all above
-  12. Task 2.12 (Test Fixtures) - depends on all above
+Deliverables:
+  [x] 2.01 - Base Types and Enums (base.py)
+  [x] 2.02 - Flight Segment Model (flight.py)
+  [x] 2.03 - Itinerary Model (flight.py)
+  [x] 2.04 - Price Model (flight.py)
+  [x] 2.05 - FlightOffer Model (flight.py)
+  [x] 2.06 - Route Model (preferences.py)
+  [x] 2.07 - DateRange Model (preferences.py)
+  [x] 2.08 - UserPreferences Model (preferences.py)
+  [x] 2.09 - Amadeus Response Models (amadeus.py)
+  [x] 2.10 - Mapper Functions (mappers.py)
+  [x] 2.11 - Package Exports (__init__.py)
+  [x] 2.12 - Test Fixtures (N/A - tests are self-contained)
+
+Files Created:
+  - src/raton/models/base.py - 3 enums (51 lines)
+  - src/raton/models/amadeus.py - 5 API models (128 lines)
+  - src/raton/models/flight.py - 4 domain models (143 lines)
+  - src/raton/models/preferences.py - 3 preference models (92 lines)
+  - src/raton/models/mappers.py - 2 mapper functions (161 lines)
+  - src/raton/models/__init__.py - Package exports (30 lines)
+  - tests/models/test_base.py - 9 tests
+  - tests/models/test_amadeus.py - 9 tests
+  - tests/models/test_flight.py - 14 tests
+  - tests/models/test_preferences.py - 13 tests
+  - tests/models/test_mappers.py - 12 tests
+  - tests/models/test_init.py - 6 tests
+
+Test Coverage:
+  - 63 tests passing (100% pass rate)
+  - All models have comprehensive test coverage
+  - Tests follow GIVEN/WHEN/THEN format
+  - Edge cases and validation tested
+
+Key Features Implemented:
+  - Decimal for all monetary values (no floating-point errors)
+  - Timezone-aware datetime support
+  - ISO 8601 duration parsing (custom regex implementation)
+  - YAML serialization for preferences (human-readable)
+  - Computed properties using @computed_field (no staleness)
+  - Validation of business rules (origin ≠ destination, date ranges, passenger limits)
+  - Clean separation between API and domain models
+  - Pure function mappers for easy testing
+
+Technical Decisions:
+  - Used str/Enum mixin for JSON-friendly serialization
+  - Kept Amadeus models flexible with dict[str, Any]
+  - Validation only for business rules, not external data formats
+  - Custom ISO 8601 parser (no isodate dependency)
+  - Computed fields auto-included in serialization
+  - Model validators enforce constraints at construction time
+
+Verification:
+  - All 63 tests pass
+  - Linting clean (ruff, pre-commit)
+  - Package exports verified with import tests
+  - Models serialize/deserialize correctly
+  - YAML roundtrip works for preferences
 
 ================================================================================
                          PHASES 3-10: NOT STARTED
@@ -101,6 +137,16 @@ Phase 10: AI Agent Integration (V3) - NOT STARTED
 ================================================================================
                               CHANGE LOG
 ================================================================================
+
+[2026-01-11] Phase 2 Domain Models - COMPLETED
+  - Implemented all 12 Phase 2 tasks across 3 PRs
+  - PR 1: Base types and Amadeus API models (commit c823523)
+  - PR 2: Flight and preference domain models (commit ea8ad66)
+  - PR 3: Mappers and package integration (commit 7f85a07)
+  - Created 6 model files and 6 test files
+  - 63 tests passing with comprehensive coverage
+  - All acceptance criteria met
+  - Ready for Phase 3 (Amadeus Integration)
 
 [2026-01-11] Initial worklog created
   - Phase 1 marked as complete (based on existing codebase)

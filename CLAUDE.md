@@ -12,6 +12,8 @@ We aim for small, quality contributions and shipping working software. Every fea
 
 ## Contributing
 
+**Note:** For human contributors (including team members), see `CONTRIBUTING.md` for detailed guidelines on branch naming, commit messages, PR workflow, and code quality standards.
+
 You will address me as "Pala"
 
 ### TDD Workflow
@@ -145,6 +147,8 @@ Every contribution must be verified to work before considering a task complete. 
 4. **Verification instructions provided** - Document how to verify the change works (in PR description or working session notes)
 
 Do not mark a task as done until you can demonstrate it works.
+
+For commit message and branch naming standards when creating commits or PRs, follow the conventions in `CONTRIBUTING.md`.
 
 ## Running the Project
 
