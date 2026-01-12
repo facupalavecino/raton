@@ -7,7 +7,11 @@ from raton.services.exceptions import (
     AmadeusError,
     AmadeusNetworkError,
     AmadeusRateLimitError,
+    PreferencesError,
+    PreferencesNotFoundError,
+    PreferencesStorageError,
 )
+from raton.services.preferences import PreferencesRepository
 
 __all__ = [
     "AmadeusApiError",
@@ -16,4 +20,8 @@ __all__ = [
     "AmadeusError",
     "AmadeusNetworkError",
     "AmadeusRateLimitError",
+    "PreferencesError",
+    "PreferencesNotFoundError",
+    "PreferencesRepository",
+    "PreferencesStorageError",
 ]
