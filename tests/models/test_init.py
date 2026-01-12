@@ -69,6 +69,7 @@ def test_all_matches_actual_exports():
     """
     expected = {
         "CabinClass",
+        "CheckResult",
         "StopPreference",
         "TripType",
         "FlightSegment",
@@ -92,6 +93,6 @@ def test_no_internal_modules_in_all():
     THEN it does not include internal module names
     """
     # __all__ should not include module names like 'base', 'flight', etc.
-    internal_modules = {"base", "flight", "preferences", "amadeus", "mappers"}
+    internal_modules = {"base", "flight", "preferences", "amadeus", "mappers", "results"}
 
     assert not internal_modules.intersection(set(raton.models.__all__))

@@ -38,7 +38,7 @@ class Settings(BaseSettings):
     amadeus_api_secret: str
     amadeus_hostname: Literal["test", "production"] = "test"
 
-    check_interval_hours: int = 1
+    check_interval_hours: int = 2
     log_level: str = "INFO"
     data_dir: Path = Path("./data")
 

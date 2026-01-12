@@ -16,6 +16,7 @@ from raton.services.exceptions import (
     TelegramError,
     TelegramNetworkError,
 )
+from raton.services.orchestrator import CheckOrchestrator
 from raton.services.preferences import PreferencesRepository
 from raton.services.rules import MatchResult, evaluate_flight
 from raton.services.telegram import TelegramNotifier
@@ -27,6 +28,7 @@ __all__ = [
     "AmadeusError",
     "AmadeusNetworkError",
     "AmadeusRateLimitError",
+    "CheckOrchestrator",
     "MatchResult",
     "PreferencesError",
     "PreferencesNotFoundError",
