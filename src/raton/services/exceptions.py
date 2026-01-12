@@ -1,7 +1,7 @@
-"""Custom exceptions for Amadeus API interactions.
+"""Custom exceptions for service layer operations.
 
 This module defines domain-specific exceptions for handling various error
-scenarios when interacting with the Amadeus API.
+scenarios in service operations including Amadeus API and preferences storage.
 """
 
 from __future__ import annotations
@@ -52,6 +52,36 @@ class AmadeusApiError(AmadeusError):
 
     Raised when the API returns an error response (4xx or 5xx status codes)
     that doesn't fall into more specific error categories.
+    """
+
+    pass
+
+
+class PreferencesError(Exception):
+    """Base exception for all preferences-related errors.
+
+    This is the parent class for all preferences exceptions. Catching this
+    exception will catch all preferences-specific errors.
+    """
+
+    pass
+
+
+class PreferencesNotFoundError(PreferencesError):
+    """User preferences not found.
+
+    Raised when attempting to load, update, or delete preferences for a user
+    that doesn't exist in the storage.
+    """
+
+    pass
+
+
+class PreferencesStorageError(PreferencesError):
+    """Error reading or writing preferences to storage.
+
+    Raised when there are I/O errors, permission issues, or data corruption
+    when interacting with the preferences storage system.
     """
 
     pass
