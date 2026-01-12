@@ -35,6 +35,9 @@ def get_logging_config(level: str = "INFO") -> dict[str, Any]:
                 "formatter": "json",
                 "stream": "ext://sys.stdout",
             },
+            "logfire": {
+                "class": "logfire.LogfireLoggingHandler",
+            },
         },
         "root": {
             "level": level.upper(),
@@ -43,7 +46,7 @@ def get_logging_config(level: str = "INFO") -> dict[str, Any]:
         "loggers": {
             "raton": {
                 "level": level.upper(),
-                "handlers": ["console"],
+                "handlers": ["console", "logfire"],
                 "propagate": False,
             },
             "httpx": {

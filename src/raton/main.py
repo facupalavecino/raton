@@ -6,6 +6,8 @@ import asyncio
 import logging
 import signal
 
+import logfire
+
 from raton.config import get_settings
 from raton.logging_config import setup_logging
 from raton.services import AmadeusClient, CheckOrchestrator, PreferencesRepository, TelegramNotifier
@@ -26,6 +28,8 @@ async def run() -> None:
 
     settings = get_settings()
     setup_logging(settings.log_level)
+
+    logfire.configure()
 
     logger.info("Starting Raton bot...")
 
