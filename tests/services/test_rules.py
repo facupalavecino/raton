@@ -585,7 +585,7 @@ def test_match_result_immutable():
     """
     GIVEN a MatchResult instance
     WHEN attempting to modify it
-    THEN it raises an error (frozen dataclass)
+    THEN it raises a FrozenInstanceError or AttributeError (frozen dataclass)
     """
     result = MatchResult(
         is_match=True,
@@ -593,5 +593,5 @@ def test_match_result_immutable():
         failed_reasons=(),
     )
 
-    with pytest.raises(Exception):  # noqa: B017
+    with pytest.raises((AttributeError, TypeError)):  # frozen dataclass error
         result.is_match = False  # type: ignore[misc]
