@@ -5,7 +5,7 @@ Models representing user search criteria and preferences for flight deals.
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 
 from pydantic import BaseModel, Field, model_validator
@@ -80,6 +80,7 @@ class UserPreferences(BaseModel):
         cabin_class: Preferred cabin class (default ECONOMY)
         stop_preference: Preference for stops/connections (default ANY)
         trip_type: Type of trip (default ROUND_TRIP)
+        max_duration: Maximum acceptable total flight duration (optional)
     """
 
     routes: list[Route] = Field(min_length=1)
@@ -90,3 +91,4 @@ class UserPreferences(BaseModel):
     cabin_class: CabinClass = CabinClass.ECONOMY
     stop_preference: StopPreference = StopPreference.ANY
     trip_type: TripType = TripType.ROUND_TRIP
+    max_duration: timedelta | None = None
