@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -15,7 +16,7 @@ class Settings(BaseSettings):
         anthropic_api_key: API key for Anthropic Claude.
         amadeus_api_key: API key for Amadeus.
         amadeus_api_secret: API secret for Amadeus.
-        amadeus_base_url: Base URL for Amadeus API.
+        amadeus_hostname: Amadeus environment ("test" or "production").
         check_interval_hours: How often to check for flight deals.
         log_level: Logging level.
         data_dir: Directory for storing user data.
@@ -27,18 +28,14 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # Telegram
     telegram_bot_token: str
 
-    # Anthropic
     anthropic_api_key: str
 
-    # Amadeus
     amadeus_api_key: str
     amadeus_api_secret: str
-    amadeus_base_url: str = "https://test.api.amadeus.com"
+    amadeus_hostname: Literal["test", "production"] = "test"
 
-    # App
     check_interval_hours: int = 1
     log_level: str = "INFO"
     data_dir: Path = Path("./data")
