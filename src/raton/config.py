@@ -13,6 +13,7 @@ class Settings(BaseSettings):
 
     Attributes:
         telegram_bot_token: Bot token from @BotFather.
+        telegram_use_test_environment: Use Telegram test environment.
         anthropic_api_key: API key for Anthropic Claude.
         amadeus_api_key: API key for Amadeus.
         amadeus_api_secret: API secret for Amadeus.
@@ -29,6 +30,7 @@ class Settings(BaseSettings):
     )
 
     telegram_bot_token: str
+    telegram_use_test_environment: bool = False
 
     anthropic_api_key: str
 

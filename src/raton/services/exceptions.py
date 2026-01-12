@@ -85,3 +85,53 @@ class PreferencesStorageError(PreferencesError):
     """
 
     pass
+
+
+class TelegramError(Exception):
+    """Base exception for all Telegram-related errors.
+
+    This is the parent class for all Telegram exceptions. Catching this
+    exception will catch all Telegram-specific errors.
+    """
+
+    pass
+
+
+class TelegramAuthError(TelegramError):
+    """Bot token is invalid or unauthorized.
+
+    Raised when the Telegram bot token is invalid, expired, or lacks
+    necessary permissions to perform the requested action.
+    """
+
+    pass
+
+
+class TelegramChatNotFoundError(TelegramError):
+    """Chat ID is invalid or bot was blocked by user.
+
+    Raised when attempting to send a message to a chat that doesn't exist,
+    or when the user has blocked the bot.
+    """
+
+    pass
+
+
+class TelegramDeliveryError(TelegramError):
+    """Failed to deliver message to Telegram.
+
+    Raised when the Telegram API returns an error that prevents message
+    delivery but doesn't fall into more specific error categories.
+    """
+
+    pass
+
+
+class TelegramNetworkError(TelegramError):
+    """Network error communicating with Telegram API.
+
+    Raised when there are connection timeouts, DNS failures, or other
+    network-related issues preventing communication with Telegram servers.
+    """
+
+    pass

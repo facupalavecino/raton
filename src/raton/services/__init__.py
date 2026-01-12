@@ -10,9 +10,15 @@ from raton.services.exceptions import (
     PreferencesError,
     PreferencesNotFoundError,
     PreferencesStorageError,
+    TelegramAuthError,
+    TelegramChatNotFoundError,
+    TelegramDeliveryError,
+    TelegramError,
+    TelegramNetworkError,
 )
 from raton.services.preferences import PreferencesRepository
 from raton.services.rules import MatchResult, evaluate_flight
+from raton.services.telegram import TelegramNotifier
 
 __all__ = [
     "AmadeusApiError",
@@ -26,5 +32,11 @@ __all__ = [
     "PreferencesNotFoundError",
     "PreferencesRepository",
     "PreferencesStorageError",
+    "TelegramAuthError",
+    "TelegramChatNotFoundError",
+    "TelegramDeliveryError",
+    "TelegramError",
+    "TelegramNetworkError",
+    "TelegramNotifier",
     "evaluate_flight",
 ]

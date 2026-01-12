@@ -16,7 +16,9 @@ def settings() -> Settings:
     """
     return Settings(
         telegram_bot_token="test_token",
+        telegram_use_test_environment=False,
         anthropic_api_key="test_anthropic_key",
         amadeus_api_key="test_amadeus_key",
         amadeus_api_secret="test_amadeus_secret",
+        _env_file=None,  # Disable loading from .env file in tests
     )
