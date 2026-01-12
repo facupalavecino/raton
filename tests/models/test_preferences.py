@@ -5,7 +5,7 @@ Tests the models that represent user search criteria and preferences.
 
 from __future__ import annotations
 
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 
 import pytest
@@ -276,3 +276,68 @@ def test_user_preferences_price_as_string():
     )
     assert isinstance(prefs.max_price, Decimal)
     assert prefs.max_price == Decimal("500.00")
+
+
+def test_user_preferences_with_max_duration():
+    """
+    GIVEN preferences with max_duration specified
+    WHEN creating UserPreferences
+    THEN the max_duration is preserved
+    """
+    prefs = UserPreferences(
+        routes=[Route(origin="JFK", destination="LAX")],
+        date_range=DateRange(
+            earliest=date(2026, 3, 1),
+            latest=date(2026, 3, 15),
+        ),
+        max_price=Decimal("500"),
+        currency="USD",
+        max_duration=timedelta(hours=8),
+    )
+    assert prefs.max_duration == timedelta(hours=8)
+
+
+def test_user_preferences_max_duration_optional():
+    """
+    GIVEN preferences without max_duration
+    WHEN creating UserPreferences
+    THEN max_duration defaults to None
+    """
+    prefs = UserPreferences(
+        routes=[Route(origin="JFK", destination="LAX")],
+        date_range=DateRange(
+            earliest=date(2026, 3, 1),
+            latest=date(2026, 3, 15),
+        ),
+        max_price=Decimal("500"),
+        currency="USD",
+    )
+    assert prefs.max_duration is None
+
+
+def test_user_preferences_max_duration_yaml_serialization():
+    """
+    GIVEN preferences with max_duration
+    WHEN serializing to YAML and back
+    THEN timedelta roundtrips correctly
+    """
+    prefs = UserPreferences(
+        routes=[Route(origin="JFK", destination="LAX")],
+        date_range=DateRange(
+            earliest=date(2026, 3, 1),
+            latest=date(2026, 3, 15),
+        ),
+        max_price=Decimal("500"),
+        currency="USD",
+        max_duration=timedelta(hours=10, minutes=30),
+    )
+
+    # Serialize to YAML
+    yaml_str = yaml.dump(prefs.model_dump(mode="json"))
+
+    # Deserialize from YAML
+    loaded_data = yaml.safe_load(yaml_str)
+    loaded_prefs = UserPreferences.model_validate(loaded_data)
+
+    # Verify max_duration preserved
+    assert loaded_prefs.max_duration == timedelta(hours=10, minutes=30)

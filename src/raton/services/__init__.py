@@ -12,6 +12,7 @@ from raton.services.exceptions import (
     PreferencesStorageError,
 )
 from raton.services.preferences import PreferencesRepository
+from raton.services.rules import MatchResult, evaluate_flight
 
 __all__ = [
     "AmadeusApiError",
@@ -20,8 +21,10 @@ __all__ = [
     "AmadeusError",
     "AmadeusNetworkError",
     "AmadeusRateLimitError",
+    "MatchResult",
     "PreferencesError",
     "PreferencesNotFoundError",
     "PreferencesRepository",
     "PreferencesStorageError",
+    "evaluate_flight",
 ]
